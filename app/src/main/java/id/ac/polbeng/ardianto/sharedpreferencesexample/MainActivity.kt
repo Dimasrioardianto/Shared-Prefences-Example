@@ -9,12 +9,17 @@ import id.ac.polbeng.ardianto.sharedpreferencesexample.databinding.ActivityMainB
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    companion object {
+        const val RPL = "TESTFILE"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val filename ="$packageName TESTFILE"
+        val filename = "$packageName-$RPL"
         val pref = getSharedPreferences(filename, Context.MODE_PRIVATE)
 
         binding.btnSave.setOnClickListener {
@@ -24,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             editor.apply()
             Toast.makeText(this, "Saved Data!", Toast.LENGTH_LONG).show()
         }
+
         binding.btnLoad.setOnClickListener {
             val firstName = pref.getString("firstName", "")
             val lastName = pref.getString("lastName", "")
@@ -34,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnSecondActivity.setOnClickListener {
-            val intent = Intent (this@MainActivity, SecondActivity::class.java)
+            val intent = Intent(this@MainActivity, SecondActivity::class.java)
             startActivity(intent)
         }
     }
